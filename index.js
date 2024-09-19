@@ -45,6 +45,15 @@ const listarMetas = async () => {
 }
 
 
+
+const metasRealizadas = async () => {
+    const realizadas = metas.filter((meta) => {
+        return meta.checked
+    })
+}
+
+
+
 const start = async () => { // async usando no await.
 
     while (true) {
@@ -60,6 +69,11 @@ const start = async () => { // async usando no await.
                 value: "Listar"
             },
             {
+                naem: "Metas realizadas",
+                value: "Realizadas"
+            },
+
+            {
                 name: 'Sair',
                 value: 'Sair'
             }
@@ -71,15 +85,18 @@ const start = async () => { // async usando no await.
             case "Cadastrar":
                 await cadastrarMeta()
                 console.log(metas);
-                break;
+                break
 
             case "Listar":
-                    await listarMetas();
-                break;
+                    await listarMetas()
+                break
+            case "Realizadas":
+                await metasRealizadas()
+                break
 
             case "Sair":
-                console.log("Ate a proxima!");
-                return;
+                console.log("Ate a proxima!")
+                return
         }
     }
 
