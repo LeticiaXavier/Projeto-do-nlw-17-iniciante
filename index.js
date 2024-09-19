@@ -1,5 +1,6 @@
 const { select } = require('@inquirer/prompts');
 
+const cadastrarMeta = async () => {}
 
 const start = async () => {
 
