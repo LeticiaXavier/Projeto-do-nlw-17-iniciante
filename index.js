@@ -6,16 +6,17 @@ let mensagem = "Bem-Vindo ao Aplicativo de Metas!";
 
 
 
-let metas 
+let metas
 
 
 const carregarMetas = async () => {
-    try {const dados = await fs.readFile("metas.json", "utf8")
+    try {
+        const dados = await fs.readFile("metas.json", "utf8")
         metas = JSON.parse(dados) // parse é uma função que esta dentro do json. passa os dados dentro.
-        }
+    }
 
-    catch(erro){
-        metas = []  
+    catch (erro) {
+        metas = []
     }
 
 }
@@ -29,7 +30,7 @@ const cadastrarMeta = async () => {
 
     const meta = await input({ message: "Digite a sua meta: " })
 
-    if (meta.length === 0) {
+    if (meta.length == 0) {
         mensagem = "A Lista de Meta não pode ser vazia!"
         return
     }
@@ -39,6 +40,12 @@ const cadastrarMeta = async () => {
 
 
 const listarMetas = async () => {
+
+    if (metas.length == 0) {
+        mensagem = "Não existe metas!"
+        return
+    }
+
     const respostas = await checkbox({
         message: "Use as setas para mudar de meta, o espaço para marcar ou desmarcar e o Enter para finalizar!",
         choices: [...metas],
@@ -49,7 +56,7 @@ const listarMetas = async () => {
         m.checked = false
     })
 
-    if (respostas.length === 0) {
+    if (respostas.length == 0) {
         mensagem = "Nenhuma meta selecionada!"
         return
     }
@@ -70,6 +77,12 @@ const listarMetas = async () => {
 
 
 const metasRealizadas = async () => {
+
+    if (metas.length == 0) {
+        mensagem = "Não existe metas!"
+        return
+    }
+
     const realizadas = metas.filter((meta) => {
         return meta.checked
     })
@@ -87,6 +100,11 @@ const metasRealizadas = async () => {
 
 
 const metasAbertas = async () => {
+
+    if (metas.length == 0) {
+        mensagem = "Não existe metas!"
+        return
+    }
     const Abertas = metas.filter((meta) => {
         return meta.checked != true // O "!"  inverte um boolean, mesma coisa de fazer isso != True / False
     })
@@ -105,6 +123,10 @@ const metasAbertas = async () => {
 
 const deletarMetas = async () => {
 
+    if (metas.length == 0) {
+        mensagem = "Não existe metas!"
+        return
+    }
     const metasDesmarcadas = metas.map((meta) => {
 
         return { value: meta.value, checked: false }
@@ -116,7 +138,7 @@ const deletarMetas = async () => {
         instructions: false
     })
 
-    if (itensADeletar.length === 0) {
+    if (itensADeletar.length == 0) {
         mensagem = "Nenhum intem foi selecionado para deletar!"
         return
     }
@@ -144,7 +166,7 @@ const MostarMensagem = () => {
 
 const start = async () => { // async usando no await.
     await carregarMetas()
-    
+
 
     while (true) {
         MostarMensagem()
