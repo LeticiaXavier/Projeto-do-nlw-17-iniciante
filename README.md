@@ -1,7 +1,7 @@
 ## Projeto feito atrave do NLW da  Rocketseat
 
 - Criação de um Menu 
-- Função de cadstro de metas 
+- Função de cadastro de metas 
 - Listar as metas
 - Metas realizadas
 - Metas abertas
