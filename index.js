@@ -1,5 +1,7 @@
 const { select, input, checkbox } = require('@inquirer/prompts');
 
+let mensagem = "Bem-Vindo ao Aplicativo de Metas!";
+
 let meta = {
     value: "Tomar 2L de água todo dia",
     checked: false
@@ -11,10 +13,11 @@ const cadastrarMeta = async () => {
     const meta = await input({ message: "Digite a sua meta: " })
 
     if (meta.length === 0) {
-        console.log("A Lista de Meta não pode ser vazia!")
+        mensagem = "A Lista de Meta não pode ser vazia!"
         return
     }
     metas.push({ value: meta, checked: false })//função passando um objeto dentro.
+    mensagem = "Meta cadastrada com sucesso!"
 }
 
 
@@ -30,7 +33,7 @@ const listarMetas = async () => {
     })
 
     if (respostas.length === 0) {
-        console.log("Nenhuma meta selecionada!")
+        mensagem = "Nenhuma meta selecionada!"
         return
     }
 
@@ -43,7 +46,7 @@ const listarMetas = async () => {
 
     })
 
-    console.log("Meta(s) marcadas como concluída(s)!")
+    mensagem = "Meta(s) marcadas como concluída(s)!"
 
 }
 
@@ -54,7 +57,7 @@ const metasRealizadas = async () => {
         return meta.checked
     })
     if (realizadas.length == 0) {
-        console.log("Não existe metas realizadas! :(");
+        mensagem = "Não existe metas realizadas! :("
         return
     }
 
@@ -72,7 +75,7 @@ const metasAbertas = async () => {
     })
 
     if (Abertas.length == 0) {
-        console.log("Não existe metas abertas! :)");
+        mensagem = "Não existe metas abertas! :)"
         return
     }
 
@@ -97,7 +100,7 @@ const deletarMetas = async () => {
     })
 
     if(itensADeletar.length === 0) {
-        console.log("Nenhum intem foi selecionado para deletar!");
+        mensagem = "Nenhum intem foi selecionado para deletar!"
         return
     }
 
@@ -107,36 +110,48 @@ const deletarMetas = async () => {
         })
     })
 
-    console.log("Meta(s) deletada(s) com sucesso!")
+    mensagem = "Meta(s) deletada(s) com sucesso!"
 
+}
+
+const MostarMensagem = () => {
+    console.clear();
+
+    if(mensagem != ""){
+        console.log(mensagem);
+        console.log();
+        mensagem = ""
+
+    }
 }
 
 const start = async () => { // async usando no await.
 
     while (true) {
-
+        MostarMensagem()
         const opcao = await select({ //await faz o programa aguarda o usuário.
             message: 'Menu >',
+            
             choices: [{
-                name: 'Cadastrar meta',
+                name: 'Cadastrar Metas',
                 value: 'Cadastrar'
             },
             {
-                naem: "Listar Metas",
-                value: "Listar"
+                naem: 'Listar Metas',
+                value: 'Listar'
             },
             {
-                naem: "Metas realizadas",
-                value: "Realizadas"
+                naem: 'Metas realizadas',
+                value: 'Realizadas'
             },
             {
-                naem: "Metas abertas",
-                value: "Abertas"
+                naem: 'Metas abertas',
+                value: 'Abertas'
             },
 
             {
-                naem: "Deletar Metas",
-                value: "Deletar"
+                naem: 'Deletar Metas',
+                value: 'Deletar'
             },
 
             {
@@ -150,7 +165,6 @@ const start = async () => { // async usando no await.
         switch (opcao) {
             case "Cadastrar":
                 await cadastrarMeta()
-                console.log(metas);
                 break
 
             case "Listar":
