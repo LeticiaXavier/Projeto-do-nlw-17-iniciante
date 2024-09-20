@@ -9,4 +9,5 @@
   
 ## O programa contém um banco de dados para salvar as metas ##
 
-![Demostração do Programa](.ToDo.gif)
+![Demostração do Programa](./ToDo.gif)
+
