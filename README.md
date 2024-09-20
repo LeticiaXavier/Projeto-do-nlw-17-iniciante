@@ -1,13 +1,14 @@
-## Projeto feito atrave do NLW da  Rocketseat
+## Projeto feito através do evento online da Rocketseat, NLW 17ª Edição. Projeto voltado para iniciantes. ##
 
-- Criação de um Menu 
-- Função de cadastro de metas 
-- Listar as metas
-- Metas realizadas
-- Metas abertas
+- Criação de um Menu
+- Sistema de Mensagens
+- Função de Cadastro de Metas 
+- Listar as Metas
+- Metas Realizadas
+- Metas Abertas
 - Deletar uma meta
   
-## O programa contém um banco de dados para salvar as metas ##
+## O programa consegue salvar as metas do usuário ##
 
 ![Demostração do Programa](./ToDo.gif)
 
