@@ -1,12 +1,29 @@
 const { select, input, checkbox } = require('@inquirer/prompts');
 
+const fs = require('fs').promises
+
 let mensagem = "Bem-Vindo ao Aplicativo de Metas!";
 
-let meta = {
-    value: "Tomar 2L de água todo dia",
-    checked: false
+
+
+let metas 
+
+
+const carregarMetas = async () => {
+    try {const dados = await fs.readFile("metas.json", "utf8")
+        metas = JSON.parse(dados) // parse é uma função que esta dentro do json. passa os dados dentro.
+        }
+
+    catch(erro){
+        metas = []  
+    }
+
 }
-let metas = [meta]
+
+const salvarMetas = async () => {
+    await fs.writeFile("metas.json", JSON.stringify(metas, null, 2))
+}
+
 
 const cadastrarMeta = async () => {
 
@@ -87,10 +104,10 @@ const metasAbertas = async () => {
 }
 
 const deletarMetas = async () => {
-    
+
     const metasDesmarcadas = metas.map((meta) => {
-         
-        return {value: meta.value, checked: false}
+
+        return { value: meta.value, checked: false }
     })
 
     const itensADeletar = await checkbox({
@@ -99,13 +116,13 @@ const deletarMetas = async () => {
         instructions: false
     })
 
-    if(itensADeletar.length === 0) {
+    if (itensADeletar.length === 0) {
         mensagem = "Nenhum intem foi selecionado para deletar!"
         return
     }
 
     itensADeletar.forEach((item) => {
-        metas =  metas.filter((meta) => {
+        metas = metas.filter((meta) => {
             return meta.value != item
         })
     })
@@ -117,7 +134,7 @@ const deletarMetas = async () => {
 const MostarMensagem = () => {
     console.clear();
 
-    if(mensagem != ""){
+    if (mensagem != "") {
         console.log(mensagem);
         console.log();
         mensagem = ""
@@ -126,12 +143,16 @@ const MostarMensagem = () => {
 }
 
 const start = async () => { // async usando no await.
+    await carregarMetas()
+    
 
     while (true) {
         MostarMensagem()
+        await salvarMetas()
+
         const opcao = await select({ //await faz o programa aguarda o usuário.
             message: 'Menu >',
-            
+
             choices: [{
                 name: 'Cadastrar Metas',
                 value: 'Cadastrar'
@@ -190,4 +211,4 @@ const start = async () => { // async usando no await.
     }
 
 }
-start(); // Chama a função para iniciar o menu
+start() // Chama a função para iniciar o menu
